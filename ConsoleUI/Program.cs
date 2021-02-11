@@ -27,7 +27,7 @@ namespace ConsoleUI
             //carManager.Add(new Car() { BrandId = 1, ColorId = 2, DailyPrice = 120, ModelYear = 2020, Description = "Car" });
             //carManager.Delete(new Car() { Id = 9 });
            // carManager.Update(new Car() { Id = 10, BrandId = 2, ColorId = 1, DailyPrice = 1200, ModelYear = 2017, Description = "Kral arac" });
-            foreach (var brand in brandManager.GetAll())
+           /* foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.BrandId);
                 Console.WriteLine(brand.BrandName);
@@ -48,12 +48,14 @@ namespace ConsoleUI
                 Console.WriteLine(car.Description);
                 Console.WriteLine(car.ModelYear);
                 Console.WriteLine("-------------------------------------------");
-            }
-            foreach (var car in carManager.GetCarDetails())
+            }*/
+           if (carManager.GetCarDetails().Success)
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.CarName+" / "+car.BrandName+" / "+car.ColorName+" / "+car.DailyPrice);
             }
-
+           else
+                Console.WriteLine(carManager.GetCarDetails().Message);
         }
     }
 }

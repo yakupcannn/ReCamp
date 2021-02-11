@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Messages;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,44 +18,44 @@ namespace Business.Concrete
             _car = car;
         }
 
-        public void Add(Car entity)
+        public IResult Add(Car entity)
         {
             _car.Add(entity);
+            return new Result(true, Message.ProductAdded);
         }
 
-        public void Delete(Car entity)
+        public IResult Delete(Car entity)
         {
             _car.Delete(entity);
+            return new Result(true, Message.ProductDeleted);
         }
 
-        public Car Get(Expression<Func<Car, bool>> filter)
+        public IDataResult<List<Car>> GetAll()
         {
-           return _car.Get(filter);
+            return  new SuccessDataResult<List<Car>>(_car.GetAll());
         }
 
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        public IDataResult<Car> GetCarsByBrandId(int brandId)
         {
-            return _car.GetAll();
+           return new SuccessDataResult<Car>(_car.Get(c => c.BrandId == brandId));
         }
 
-        public Car GetByBrandId(int brandId)
+        public IDataResult<Car> GetCarsByColorId(int colorId)
         {
-           return _car.Get(c => c.BrandId == brandId);
+           return new SuccessDataResult<Car>(_car.Get(c => c.ColorId == colorId));
         }
 
-        public Car GetByColorId(int colorId)
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-           return _car.Get(c => c.ColorId == colorId);
+            if (DateTime.Now.Hour == 22)
+                return new ErrorDataResult<List<CarDetailDto>>(Message.MaintenanceTime);
+            return new SuccessDataResult<List<CarDetailDto>>(_car.GetCarDetails());
         }
 
-        public List<CarDetailDto> GetCarDetails()
-        {
-            return _car.GetCarDetails();
-        }
-
-        public void Update(Car entity)
+        public IResult Update(Car entity)
         {
            _car.Update(entity);
+            return new Result(true, Message.ProductUpdated);
         }
     }
 }

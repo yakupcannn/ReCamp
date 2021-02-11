@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Messages;
+using Core.DataAccess.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,29 +19,30 @@ namespace Business.Concrete
             _brand = Brand;
         }
 
-        public void Add(Brand entity)
+        public IResult Add(Brand entity)
         {
             _brand.Add(entity);
+            return new SuccessResult(Message.ProductAdded);
         }
 
-        public void Delete(Brand entity)
+        public IResult Delete(Brand entity)
         {
             _brand.Delete(entity);
+            return new SuccessResult(Message.ProductDeleted);
         }
-
-        public Brand Get(Expression<Func<Brand, bool>> filter)
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brand.Get(filter);
+            return new SuccessDataResult<List<Brand>>(_brand.GetAll());
         }
-
-        public List<Brand> GetAll(Expression<Func<Brand, bool>> filter = null)
+        public IDataResult<Brand> GetById(int brandId)
         {
-            return _brand.GetAll();
+            return new SuccessDataResult<Brand>(_brand.Get(b => b.BrandId == brandId));
         }
 
-        public void Update(Brand entity)
+        public IResult Update(Brand entity)
         {
             _brand.Update(entity);
+            return new SuccessResult(Message.ProductUpdated);
         }
     }
 }
