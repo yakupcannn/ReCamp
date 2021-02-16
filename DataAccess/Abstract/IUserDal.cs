@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Core.DataAccess.Abstract;
+using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DataAccess.Abstract
 {
-    interface IUser
+    public interface IUserDal:IEntityRepository<User>
     {
     }
 }

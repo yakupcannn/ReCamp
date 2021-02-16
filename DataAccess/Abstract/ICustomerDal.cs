@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Core.DataAccess.Abstract;
+using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DataAccess.Abstract
 {
-    interface Customer
+    public interface ICustomerDal:IEntityRepository<Customer>
     {
     }
 }
