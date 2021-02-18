@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Messages;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,7 +19,7 @@ namespace Business.Concrete
         {
             _car = car;
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car entity)
         {
             _car.Add(entity);
