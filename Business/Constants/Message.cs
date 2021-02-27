@@ -11,5 +11,6 @@ namespace Business.Messages
         public static string ProductUpdated = "The product was updated";
         public static string InvalidProductName = "The name of the product is invalid";
         public static string MaintenanceTime = "It's time to fix";
+        public static string ImageLimitExceeded= "The limit of image was exceeded";
     }
 }
